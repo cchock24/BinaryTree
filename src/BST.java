@@ -48,31 +48,83 @@ public class BST {
      */
     public boolean search(int val) {
         // TODO: Complete the search function
-        return false;
+        return searchNode(root, val);
+    }
+
+    //Iterates through each Node returning true if it finds Val false otherwise
+    public boolean searchNode(BSTNode n, int val){
+        if(n == null){
+            return false;
+        }
+        if(n.getVal() == val){
+            return true;
+        }
+        if(val > n.getVal()){
+            return searchNode(n.getRight(),val);
+        }
+        return searchNode(n.getLeft(), val);
     }
 
     /**
      * @return ArrayList of BSTNodes in inorder
      */
     public ArrayList<BSTNode> getInorder() {
+        //Left, Root, Right
         // TODO: Complete inorder traversal
-        return null;
+        ArrayList<BSTNode> list = new ArrayList<BSTNode>();
+        Inorder(list, root);
+        return list;
+    }
+
+    //Iterates through the tree ads Left, Root, Right
+    public void Inorder(ArrayList<BSTNode> list, BSTNode n){
+        if(n == null){
+            return;
+        }
+        Inorder(list, n.getLeft());
+        list.add(n);
+        Inorder(list, n.getRight());
     }
 
     /**
      * @return ArrayList of BSTNodes in preorder
      */
     public ArrayList<BSTNode> getPreorder() {
+        //Root,Left,Right
         // TODO: Complete preorder traversal
-        return null;
+        ArrayList<BSTNode> list = new ArrayList<BSTNode>();
+        Preorder(list, root);
+        return list;
     }
+    //Iterates through the tree ads Root, Left, Right
+    public void Preorder(ArrayList<BSTNode> list, BSTNode n){
+        if(n == null){
+            return;
+        }
+        list.add(n);
+        Preorder(list, n.getLeft());
+        Preorder(list, n.getRight());
+    }
+
 
     /**
      * @return ArrayList of BSTNodes in postorder
      */
     public ArrayList<BSTNode> getPostorder() {
+        //Left, Right Root
         // TODO: Complete postorder traversal
-        return null;
+        ArrayList<BSTNode> list = new ArrayList<BSTNode>();
+        Postorder(list, root);
+        return list;
+    }
+    //Iterates through the tree ads Left, Right, Root
+    public void Postorder(ArrayList<BSTNode> list, BSTNode n){
+        if(n == null){
+            return;
+        }
+        Postorder(list, n.getLeft());
+        Postorder(list, n.getRight());
+        list.add(n);
     }
 
     /**
@@ -83,6 +135,27 @@ public class BST {
      */
     public void insert(int val) {
         // TODO: Complete insert
+        Insert(root, val);
+    }
+    //Iterates through tree inserts in right spot
+    public void Insert(BSTNode n, int val){
+        if(n.getLeft() == null){
+            n.setLeft(new BSTNode(val));
+            return;
+        }
+        if(n.getRight() == null){
+            n.setRight(new BSTNode(val));
+            return;
+        }
+        if(n.getVal() == val){
+            return;
+        }
+        if(val > n.getVal()){
+            Insert(n.getRight(),val);
+        }
+        if(val < n.getVal()){
+            Insert(n.getLeft(), val);
+        }
     }
 
     /**
